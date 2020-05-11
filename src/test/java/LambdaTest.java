@@ -1,6 +1,7 @@
 import Lambda.LambdaImpl;
 import Lambda.LambdaInterface;
 import Lambda.LambdaUsed;
+import POJO.LombokUser;
 import POJO.User;
 import org.junit.Test;
 
@@ -13,11 +14,17 @@ public class LambdaTest {
      * 测试实体类的Builder原理
      */
     public void testBuilder() {
+        //手写所有方法
         User user = User.builder().id(1).name("小强").build();
 
         System.out.println(user.getName());
         System.out.println(user.getId());
         System.out.println(user.getAge());
+
+
+        //使用lombok
+        LombokUser lu=LombokUser.builder().id(1).name("小强").build();
+        System.out.println(lu);
 
     }
 
