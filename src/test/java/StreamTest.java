@@ -1,10 +1,13 @@
 import Stream.StreamUtil;
 import org.junit.Test;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 包括：Filter（过滤）、Map(映射)、sort(排序）等，
@@ -54,6 +57,25 @@ public class StreamTest {
                 .map(m->m+"大电影")    //每次将返回的对象作为新值替代原对象
                 .collect(Collectors.toList())
         );
+    }
+
+    @Test
+    /**
+     * 将不同类型转换为Stream
+     *
+     */
+    public void toStream() throws Exception {
+        //将数组转换为Stream
+        Integer[] nums = new Integer[]{12, 45, 365, 456, 12,};
+        Stream<Integer> stream = Stream.of(nums);  //使用Stream.of方法
+        Stream<String> stream1 = Stream.of("你好","不好","还好");  //或直接用多个对象生成
+
+
+        //将集合对象转换为Stream,调用集合的.stream方法
+        Stream stream2 = movies.stream();
+
+        //将文本文件转换为管道流
+        Stream<String> lines = Files.lines(Paths.get("file.txt"));
     }
 
 }
