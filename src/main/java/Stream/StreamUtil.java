@@ -20,6 +20,7 @@ public class StreamUtil {
     public static  List<User> initUser(){
         List<User> users = new ArrayList<>();
         users.add(new User(1, "小王", 18));
+        users.add(new User(1, "小王八", 15));
         users.add(new User(2, "小强", 22));
         users.add(new User(3, "小白", 16));
         users.add(new User(4, "小黑", 38));

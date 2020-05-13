@@ -1,5 +1,8 @@
 package POJO;
 
+import lombok.ToString;
+
+@ToString
 public class User {
     private int id;
     private String name;

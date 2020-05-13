@@ -1,9 +1,11 @@
+import POJO.User;
 import Stream.StreamUtil;
 import org.junit.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -75,7 +77,46 @@ public class StreamTest {
         Stream stream2 = movies.stream();
 
         //将文本文件转换为管道流
-        Stream<String> lines = Files.lines(Paths.get("file.txt"));
+        //Stream<String> lines = Files.lines(Paths.get("file.txt"));
+    }
+
+    @Test
+    /**
+     * 测试stream的sort方法
+     */
+    public void testSort() {
+        List<User> users = StreamUtil.initUser();
+        //先根据id正序再根据年龄正序
+        users.stream().sorted(
+                Comparator.comparingInt(User::getId)
+                .thenComparingInt(User::getAge))
+                .forEach(u-> System.out.println(u));
+        System.out.println("---------------------------------------------------");
+
+        //先根据id正序再根据年龄倒序(特别注意reverse会对上方所有比较都生效,所以第一个id被倒两次变正,年龄倒一次)
+        users.stream().sorted(
+                Comparator.comparingInt(User::getId)
+                        .reversed()
+                        .thenComparingInt(User::getAge)
+                        .reversed()
+        ).forEach(u-> System.out.println(u));;
+        System.out.println("---------------------------------------------------");
+
+        //先根据id倒序再根据年龄正序
+        users.stream().sorted(
+                Comparator.comparingInt(User::getId)
+                        .reversed()
+                        .thenComparingInt(User::getAge)
+        ).forEach(u-> System.out.println(u));;
+        System.out.println("---------------------------------------------------");
+
+        //先根据id倒序再根据年龄倒序
+        users.stream().sorted(
+                Comparator.comparingInt(User::getId)
+                        .thenComparingInt(User::getAge)
+                        .reversed()
+        ).forEach(u-> System.out.println(u));;
+
     }
 
 }
