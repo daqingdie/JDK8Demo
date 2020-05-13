@@ -4,10 +4,7 @@ import org.junit.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -82,7 +79,7 @@ public class StreamTest {
 
     @Test
     /**
-     * 测试stream的sort方法
+     * 测试stream的sorted方法
      */
     public void testSort() {
         List<User> users = StreamUtil.initUser();
@@ -117,6 +114,25 @@ public class StreamTest {
                         .reversed()
         ).forEach(u-> System.out.println(u));;
 
+    }
+
+
+    @Test
+    /**
+     * 学习map与float的区别
+     */
+    public void testMapAndFloatMap() {
+        //当遇到二位数组,即管道中还能有管道,
+        // 当想要输出顺序输出所有单个属性时,仅用map会有局限,得不到想要的结果
+
+        List<String> data = StreamUtil.init();
+
+        //使用map方法
+        data.stream().map(d -> Arrays.stream( d.split(""))).forEach(System.out::println);
+
+        //使用floatMap方法,会将二级流全部平铺
+        data.stream().flatMap(d -> Arrays.stream( d.split("")) //将拆分后的字符串数组转为流返回
+        ).forEach(System.out::println);
     }
 
 }
