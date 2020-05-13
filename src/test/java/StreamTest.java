@@ -119,7 +119,7 @@ public class StreamTest {
 
     @Test
     /**
-     * 学习map与float的区别
+     * 学习map与flatMap的区别
      */
     public void testMapAndFloatMap() {
         //当遇到二位数组,即管道中还能有管道,
