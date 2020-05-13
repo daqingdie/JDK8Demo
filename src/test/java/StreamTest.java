@@ -154,4 +154,30 @@ public class StreamTest {
                                 // fooEach没有返回值,会直接结束流,两者看情况使用
     }
 
+    @Test
+    /**
+     * 学习stream中match(匹配)相关函数的使用
+     */
+    public void testMatch() {
+        //匹配有点类似filter,但是返回结果是一个布尔值,filter是直接把符合规则的过滤出来新流
+        List<User> users = StreamUtil.initUser();
+
+        Stream<User> stream = users.stream();
+
+        StreamUtil.printList(users);
+
+        //是否所有用户的年龄都大于20,使用allMatch
+        System.out.println( stream.allMatch(u -> u.getAge() > 20));
+
+        //一个流经历一系列操作之后会自动关闭,所有像上面一样先初始化再使用,下面再使用就会报流已关闭的错误,须注意
+
+        //是否有用户年龄大于20,任意一个使用anyMatch
+        System.out.println(users.stream().anyMatch(u -> u.getAge() > 20));
+
+        //是否不存在用户年龄小于10岁,不存在使用noneMatch,有点像anyMatch的对立面
+        System.out.println(users.stream().noneMatch(u->u.getAge()<10));
+
+
+    }
+
 }
