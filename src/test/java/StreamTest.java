@@ -2,8 +2,10 @@ import POJO.User;
 import Stream.StreamUtil;
 import org.junit.Test;
 
+import javax.sound.midi.Soundbank;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLOutput;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -213,6 +215,30 @@ public class StreamTest {
         System.out.println(optionalUser.get());
 
 
+    }
+
+
+    @Test
+    /**
+     * 学习Stream中有关集合归约的内容(reduce)
+     */
+    public void testReduce() {
+        //计算所以用户的年龄和
+        List<User> users = StreamUtil.initUser();
+
+        //reduce参数格式为(初始值,累加器,合并器),累加器和合并器都是一个函数型接口
+        //函数型接口的意思是只有一个实现方法的接口,在调用时可以直接用lambda表达式使用
+        //累加器的参数格式为(上一次的结果(或初始值),本次对象),合并器类似
+        Integer sum1 = users.stream().map(User::getAge).reduce(0, (last, now) -> last + now);
+        System.out.println(sum1);
+
+        //合并器主要用在并联流时的数据合并,在数据量大时可以提高性能
+        Integer sum2 = users.parallelStream().map(User::getAge).reduce(0, Integer::sum, Integer::sum);
+        System.out.println(sum2);
+
+        //合并器也可以在串行时对数据流进行一个数据转换
+        Integer sum3 = users.stream().reduce(0, (sum, u) -> sum + u.getAge(), Integer::sum);
+        System.out.println(sum3);
     }
 
 }
