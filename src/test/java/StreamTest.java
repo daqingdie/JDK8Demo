@@ -135,4 +135,23 @@ public class StreamTest {
         ).forEach(System.out::println);
     }
 
+
+    @Test
+    /**
+     * 学习map,peek,forEach的区别
+     */
+    public void testMapAndPeekAndForEach() {
+        List<String> data = StreamUtil.init();
+
+        //使用map
+        data.stream().map(d -> d);  //map中的回调方法必须有返回值,可以是传入的对象或其他类型,所以也能拿来作转类型方法
+
+        //使用peek
+        data.stream().peek(d -> System.out.println("哈哈哈")); //peek的回调函数无需返回值,可以用来遍历输出等
+
+        //使用forEach
+        data.stream().forEach(d -> System.out.println("哈哈哈")); //类似peek,但是peek是返回流,可以进行下一步操作,
+                                // fooEach没有返回值,会直接结束流,两者看情况使用
+    }
+
 }
